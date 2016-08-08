@@ -13,5 +13,4 @@ The Arduino Midi Library:
 	https://github.com/FortySevenEffects/arduino_midi_library
 
 <br>
-###COMPILING WITH vMicro:
-Copy the MIDI.hpp File manually into the Build Directory (Enable Verbose Mode to find it) 
+
