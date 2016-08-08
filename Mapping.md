@@ -1,81 +1,80 @@
 
- --------------------
- MIDI CC:			  |
- --------------------
 
- OPERATOR 1: 16 - 25
- 16	Level
- 17	Mul
- 18   Det1
- 19   Det2
- 20	KSR
- 21	At (Rate)
- 22   Dec1 (Rate)
- 23   Dec1 (Level)
- 24   Dec2 (Rate)
- 25   Rel (Rate)
+# MIDI CC:
 
- OPERATOR 2: 26 - 35
- 26	Level
- 27	Mul
- 28   Det1
- 29   Det2
- 30	KSR
- 31	At (R)
- 32   Dec1 (R)
- 33   Dec1 (L)
- 34   Dec2 (R)
- 35   Rel (R)
 
- OPERATOR 3: 36 - 45
- 36	Level
- 37	Mul
- 38   Det1
- 39   Det2
- 40	KSR
- 41	At (R)
- 42   Dec1 (R)
- 43   Dec1 (L)
- 44   Dec2 (R)
- 45   Rel (R)
+### <br> OPERATOR 1: 16 - 25
+<br> 16	Level
+<br> 17	Mul
+<br> 18   Det1
+<br> 19   Det2
+<br>20	KSR
+<br> 21	At (Rate)
+<br> 22   Dec1 (Rate)
+<br> 23   Dec1 (Level)
+<br> 24   Dec2 (Rate)
+<br> 25   Rel (Rate)
+<br>
+###<br> OPERATOR 2: 26 - 35
+<br> 26	Level
+<br> 27	Mul
+<br>28   Det1
+<br>29   Det2
+<br> 30	KSR
+<br> 31	At (R)
+<br> 32   Dec1 (R)
+<br> 33   Dec1 (L)
+<br> 34   Dec2 (R)
+<br> 35   Rel (R)
 
- OPERATOR 4: 46 - 55
- 46	Level
- 47	Mul
- 48   Det1
- 49   Det2
- 50	KSR
- 51	At (R)
- 52   Dec1 (R)
- 53   Dec1 (L)
- 54   Dec2 (R)
- 55   Rel (R)
+###<br> OPERATOR 3: 36 - 45
+<br> 36	Level
+<br> 37	Mul
+<br> 38   Det1
+<br> 39   Det2
+<br> 40	KSR
+<br> 41	At (R)
+<br> 42   Dec1 (R)
+<br> 43   Dec1 (L)
+<br> 44   Dec2 (R)
+<br> 45   Rel (R)
 
- COMMON: 56 - 67
- 56	Op #1 - ON/OFF		
- 57	Op #2 - ON/OFF
- 58	Op #3 - ON/OFF
- 59	Op #4 - ON/OFF
- 60	AMSense Op #1 - ON/OFF
- 61	AMSense Op #2 - ON/OFF
- 62	AMSense Op #3 - ON/OFF
- 63	AMSense Op #4 - ON/OFF
- 64	FB
- 65	AMS
- 66	PMS
- 67	Algorithm
-
- LFO 68 - 71
- 68	Freq
- 69	LFO Wave
- 70	AMP Mod Depth
- 71	PHASE Mod Depth
-
- Noise 72-74
-
- 72	Noise Freq
- 73	Noise Enable
-
- OTHER:
- 74	POLY/CHANNEL Mode (0 = CHANNEL; 127 = POLY)
+###<br> OPERATOR 4: 46 - 55
+<br> 46	Level
+<br> 47	Mul
+<br> 48   Det1
+<br> 49   Det2
+<br> 50	KSR
+<br> 51	At (R)
+<br> 52   Dec1 (R)
+<br> 53   Dec1 (L)
+<br> 54   Dec2 (R)
+<br> 55   Rel (R)
+<br>
+###<br> COMMON: 56 - 67
+<br> 56	Op #1 - ON/OFF		
+<br> 57	Op #2 - ON/OFF
+<br> 58	Op #3 - ON/OFF
+<br> 59	Op #4 - ON/OFF
+<br> 60	AMSense Op #1 - ON/OFF
+<br> 61	AMSense Op #2 - ON/OFF
+<br> 62	AMSense Op #3 - ON/OFF
+<br> 63	AMSense Op #4 - ON/OFF
+<br> 64	FB
+<br> 65	AMS
+<br> 66	PMS
+<br> 67	Algorithm
+<br>
+###<br>LFO 68 - 71
+<br> 68	Freq
+<br> 69	LFO Wave
+<br> 70	AMP Mod Depth
+<br> 71	PHASE Mod Depth
+<br>
+###<br> Noise 72-74
+<br> 72	Noise Freq
+<br> 73	Noise Enable
+<br>
+###<br> OTHER:
+<br> 74	POLY/CHANNEL Mode (0 = CHANNEL; 127 = POLY)
 
