@@ -83,9 +83,8 @@ class YM2151DriverClass
 	void noteOn(uint8_t channel);
 	void noteOff(uint8_t channel);
 	void setTone(uint8_t ch, uint8_t keycode, int16_t kf);
-	void setVolume(uint8_t ch, uint8_t volume, uint16_t offset);
+	void loadInitPatch();
 
-	void loadTimbre(uint8_t ch, uint16_t prog_addr);
 };
 
 extern YM2151DriverClass YM2151Driver;

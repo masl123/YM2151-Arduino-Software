@@ -26,13 +26,21 @@
 //
 // ... DONE, but needs Testing
 
+
+
 #include "YM2151Driver.h"
+
+
+
 
 void YM2151DriverClass::init()
 {
+	YM2151Driver.loadInitPatch();
+	for (byte i = 0; i < 8; i++) {
+		YM2151Driver.setPan(i, 0x40);
+	}
+	YM2151.initLFO();
 }
-
-
 
 void YM2151DriverClass::setOpVolume(uint8_t channel, uint8_t op, uint8_t value){
 	uint8_t adr = getAdr(channel, op);
@@ -46,7 +54,6 @@ void YM2151DriverClass::setMul(uint8_t channel, uint8_t op, uint8_t value){
 }
 void YM2151DriverClass::setDet1(uint8_t channel, uint8_t op, uint8_t value){
 	uint8_t adr = getAdr(channel, op);
-
 	DetPhase_Mul[adr] = (DetPhase_Mul[adr] & 0x0f) | ((value & 0x70));
 	YM2151.write(0x40 + adr, DetPhase_Mul[adr]);
 }
@@ -70,8 +77,6 @@ void YM2151DriverClass::setDec1R(uint8_t channel, uint8_t op, uint8_t value){
 	EG_Decay1[adr] = (EG_Decay1[adr] & 0x80) | ((value & 0x7C) >> 2);
 	YM2151.write(0xA0 + adr, EG_Decay1[adr]);
 }
-
-
 
 void YM2151DriverClass::setAMSenseEn(uint8_t channel, uint8_t op, uint8_t value) {
 	uint8_t adr = getAdr(channel, op);
@@ -186,8 +191,6 @@ void YM2151DriverClass::setNoiseFreq(uint8_t value) {
 }
 
 
-
-
 void YM2151DriverClass::setPan(uint8_t channel, uint8_t value){
 	
 	//rethink about that (first switches on left, then right, then both, BUT should be left,both,right or so)
@@ -206,122 +209,68 @@ void YM2151DriverClass::noteOff(uint8_t channel){
 	YM2151.write(0x08, 0x00 | (channel & 0x7));
 }
 
-
-void	YM2151DriverClass::setVolume(uint8_t ch, uint8_t volume, uint16_t offset)
+void YM2151DriverClass::setTone(uint8_t ch, uint8_t keycode, int16_t kf)
 {
-	static  uint8_t	volume_tbl[] = {
-		0x2a, 0x28, 0x25, 0x22, 0x20, 0x1d, 0x1a, 0x18,
-		0x15, 0x12, 0x10, 0x0d, 0x0a, 0x08, 0x05, 0x02,
-	};
-	int16_t	tl, att;
-	if (volume & (0x80)){
-		tl = volume & 0x7f;
-	}
-	else {
-		if (volume > 15){
-			volume = 15;
+	YM2151.setTone(ch, keycode, kf);
+}
+
+extern  PROGMEM const unsigned char initPatch[];
+
+void YM2151DriverClass::loadInitPatch() {
+	//LFO
+	setLFOFreq(pgm_read_byte_near(initPatch));
+	setAmpDepth(pgm_read_byte_near(initPatch + 1));
+	setPhaseDepth(pgm_read_byte_near(initPatch + 2));
+	setWaveForm(pgm_read_byte_near(initPatch + 3));
+	setNoiseFreq(pgm_read_byte_near(initPatch + 4));
+	setNoiseEnable(pgm_read_byte_near(initPatch + 11));
+
+
+	for (int i = 0; i < 8; i++) {
+		//CH
+		setPan(i, pgm_read_byte_near(initPatch + 5));
+		setFeedback(i, pgm_read_byte_near(initPatch + 6));
+		setAlgorithm(i, pgm_read_byte_near(initPatch + 7));
+		setAMSense(i, pgm_read_byte_near(initPatch + 8));
+		setPMSense(i, pgm_read_byte_near(initPatch + 9));
+		byte a = pgm_read_byte_near(initPatch + 10);
+		setOpActive(i, 0, ((a >> 3) & 0x1) << 6);
+		setOpActive(i, 2, ((a >> 4) & 0x1) << 6);
+		setOpActive(i, 1, ((a >> 5) & 0x1) << 6);
+		setOpActive(i, 3, ((a >> 6) & 0x1) << 6);
+
+		//OPs
+		for (int a = 0; a < 4; a++) {
+			setATR(i, a, pgm_read_byte_near(initPatch + 12));
+			setDec1R(i, a, pgm_read_byte_near(initPatch + 13));
+			setDec2R(i, a, pgm_read_byte_near(initPatch + 14));
+			setRel(i, a, pgm_read_byte_near(initPatch + 15));
+			setDec1L(i, a, pgm_read_byte_near(initPatch + 16));
+			setOpVolume(i, a, pgm_read_byte_near(initPatch + 17));
+			setKSR(i, a, pgm_read_byte_near(initPatch + 18));
+			setMul(i, a, pgm_read_byte_near(initPatch + 19));
+			setDet1(i, a, pgm_read_byte_near(initPatch + 20));
+			setDet2(i, a, pgm_read_byte_near(initPatch + 21));
+			setAMSenseEn(i, a, pgm_read_byte_near(initPatch + 22));
 		}
-		tl = volume_tbl[volume];
-	}
-	tl += offset >> 8;
-	for (int i = 0; i<4; i++){
-		if (OpOn[ch] & (1 << i)){
-			att = TotalLevel[getAdr(ch,i)] + tl;
-		}
-		else {
-			att = TotalLevel[getAdr(ch, i)];
-		}
-		if (att > 0x7f || att < 0) att = 0x7f;
-		YM2151.write(0x60 + i * 8 + ch, att);
 	}
 }
 
-
-PROGMEM const unsigned char KeyCodeTable[] = {
-	0x00, 0x01, 0x02, 0x04, 0x05, 0x06, 0x08, 0x09,
-	0x0a, 0x0c, 0x0d, 0x0e, 0x10, 0x11, 0x12, 0x14,
-	0x15, 0x16, 0x18, 0x19, 0x1a, 0x1c, 0x1d, 0x1e,
-	0x20, 0x21, 0x22, 0x24, 0x25, 0x26, 0x28, 0x29,
-	0x2a, 0x2c, 0x2d, 0x2e, 0x30, 0x31, 0x32, 0x34,
-	0x35, 0x36, 0x38, 0x39, 0x3a, 0x3c, 0x3d, 0x3e,
-	0x40, 0x41, 0x42, 0x44, 0x45, 0x46, 0x48, 0x49,
-	0x4a, 0x4c, 0x4d, 0x4e, 0x50, 0x51, 0x52, 0x54,
-	0x55, 0x56, 0x58, 0x59, 0x5a, 0x5c, 0x5d, 0x5e,
-	0x60, 0x61, 0x62, 0x64, 0x65, 0x66, 0x68, 0x69,
-	0x6a, 0x6c, 0x6d, 0x6e, 0x70, 0x71, 0x72, 0x74,
-	0x75, 0x76, 0x78, 0x79, 0x7a, 0x7c, 0x7d, 0x7e,
-};
-
-/*!
-\param ch
-\param keycode
-\param kf
-*/
-void YM2151DriverClass::setTone(uint8_t ch, uint8_t keycode, int16_t kf){
-	int16_t	offset_kf = (kf & 0x3f);
-	int16_t	offset_note = keycode + (kf >> 6);
-	if (offset_note < 0) offset_note = 0;
-	if (offset_note > 0xbf) offset_note = 0xbf;
-
-	YM2151.write(0x30 + ch, offset_kf << 2);
-	YM2151.write(0x28 + ch, pgm_read_byte_near(KeyCodeTable + offset_note));
-}
-
-
-void	YM2151DriverClass::loadTimbre(uint8_t ch, uint16_t prog_addr)
-{
-	static uint8_t carrier_slot_tbl[] = {
-		0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0f,
-	};
-
-	uint16_t taddr = prog_addr;
-	uint8_t	no = pgm_read_byte_near(taddr++);
-	
-	ChannelControl[ch] = pgm_read_byte_near(taddr++);
-	YM2151.write(0x20 + ch, ChannelControl[ch]);
-
-	OpOn[ch] = pgm_read_byte_near(taddr++);
-
-	for (int i = 0; i<32; i += 8){
-		uint8_t	dt1_mul = pgm_read_byte_near(taddr++);
-		DetPhase_Mul[i + ch] = dt1_mul;
-		YM2151.write(0x40 + ch + i, dt1_mul);
-	}
-
-	for (int i = 0; i<4; i++){
-		TotalLevel[getAdr(ch,i)] = pgm_read_byte_near(taddr++);
-	}
-
-	for (int i = 0; i<32; i += 8){
-		uint8_t	ks_ar = pgm_read_byte_near(taddr++);
-		EG_Attack[i + ch] = ks_ar;
-		YM2151.write(0x80 + ch + i, ks_ar);
-	}
-
-	for (int i = 0; i<32; i += 8){
-		uint8_t	ame_d1r = pgm_read_byte_near(taddr++);
-		EG_Decay1[i + ch] = ame_d1r;
-		YM2151.write(0xa0 + ch + i, ame_d1r);
-	}
-
-	for (int i = 0; i<32; i += 8){
-		uint8_t	dt2_d2r = pgm_read_byte_near(taddr++);
-		EG_Decay2[i + ch] = dt2_d2r;
-		YM2151.write(0xc0 + ch + i, dt2_d2r);
-	}
-
-	for (int i = 0; i<32; i += 8){
-		uint8_t	d1l_rr = pgm_read_byte_near(taddr++);
-		EGDec_RelRate[i + ch] = d1l_rr;
-		YM2151.write(0xe0 + ch + i, d1l_rr);
-	}
-
-}
 
 
 uint8_t YM2151DriverClass::getAdr(uint8_t channel, uint8_t op){
 	return (op * 8) + channel;
 }
+
+
+
+//Default Patch
+PROGMEM const unsigned char initPatch[] = {
+	0,   0,   0,   0,   0, //LFO
+	64,   0,   0 ,  0,   0,  64 ,  0, //CH
+	124 ,  0,   0,   32 ,  0 ,  0 ,  0,   8,   0,   0,   0, //OPs
+};
+
 
 YM2151DriverClass YM2151Driver;
 

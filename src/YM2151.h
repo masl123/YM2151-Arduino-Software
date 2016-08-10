@@ -15,6 +15,7 @@ class	YM2151_Class{
 		YM2151_Class();
 		void	begin();
 		void	initLFO();
+		void setTone(uint8_t ch, uint8_t keycode, int16_t kf);
 		uint8_t	read();
 		void	write(uint8_t addr,uint8_t data);
 		
