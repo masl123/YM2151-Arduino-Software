@@ -65,6 +65,9 @@
     <ClInclude Include="__vm\.Midi_In_YM2151.vsarduino.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="__vm\.src.vsarduino.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Midi_In_YM2151.ino" />

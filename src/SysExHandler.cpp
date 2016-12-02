@@ -26,11 +26,11 @@ void SysExHandlerClass::init()
 }
 
 void SysExHandlerClass::handleSysEx(uint8_t value[], uint8_t length) {
-	if (length != 3 || value[0] != 0x4d || value[1] != 0x54) {
+	if (length > 5 || value[1] != 0x4d || value[2] != 0x54) {
 		return;
 	}
 
-	YM2151Driver.setMasterTune(value[2]);
+	YM2151Driver.setMasterTune(value[3]);
 }
 SysExHandlerClass SysExHandler;
 
