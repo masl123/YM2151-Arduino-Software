@@ -47,9 +47,6 @@ void NotePoolClass::handleNote(bool on, uint8_t channel, uint8_t pitch, uint8_t 
 	}
 	else{
 
-		
-
-
 		uint8_t ymChannel = 0xFF;
 		if (on){
 

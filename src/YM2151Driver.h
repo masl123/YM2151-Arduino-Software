@@ -53,6 +53,8 @@ class YM2151DriverClass
 	 uint8_t PhAmpMod;
 	 uint8_t CtrlOut_WF;
 
+	 uint8_t MasterTune = 63;
+
  public:
 	void init();
 	void setOpVolume(uint8_t channel, uint8_t op, uint8_t value);
@@ -83,8 +85,10 @@ class YM2151DriverClass
 	void noteOn(uint8_t channel);
 	void noteOff(uint8_t channel);
 	void setTone(uint8_t ch, uint8_t keycode, int16_t kf);
-	void loadInitPatch();
+	
+	void setMasterTune(uint8_t value);
 
+	void loadInitPatch();
 };
 
 extern YM2151DriverClass YM2151Driver;

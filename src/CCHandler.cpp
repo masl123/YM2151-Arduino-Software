@@ -102,7 +102,7 @@
 *
 * OTHER:
 * 74	POLY/CHANNEL Mode (0 = CHANNEL; 127 = POLY)
-*
+* 
 * */
 
 
@@ -154,10 +154,6 @@ void CCHandlerClass::handleCC(uint8_t channel, uint8_t number, uint8_t value){
 
 
 void CCHandlerClass::handleLFO(uint8_t number , uint8_t value) {
-	
-	
-
-
 	switch (number){
 		case 68:
 			YM2151Driver.setLFOFreq(value);

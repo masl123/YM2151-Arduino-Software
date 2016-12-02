@@ -16,17 +16,30 @@
 *	along with this program.If not, see <http://www.gnu.org/licenses/>.
 */
 
-//#include  <EEPROM\src\EEPROM.h>
+#include  <EEPROM\src\EEPROM.h>
 
 #include "EPROMManager.h"
 
 
 void EPROMManagerClass::init()
 {
-
-
 }
 
+uint8_t* EPROMManagerClass::load(uint16_t address, uint8_t length)
+{
+	uint8_t* values = new uint8_t[length];
+	for (uint8_t i = 0; i < length; i++) {
+		values[i] = EEPROM.read(address + i);
+	}
+	return values;
+}
+
+void EPROMManagerClass::save(uint16_t address, uint8_t values[], uint8_t length)
+{
+	for (uint8_t i = 0; i < length; i++) {
+		EEPROM.write(address + i, values[i]);
+	}
+}
 
 EPROMManagerClass EPROMManager;
 

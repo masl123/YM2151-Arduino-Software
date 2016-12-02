@@ -32,6 +32,7 @@ class SysExHandlerClass
 
  public:
 	void init();
+	void handleSysEx(uint8_t values[], uint8_t length);
 };
 
 extern SysExHandlerClass SysExHandler;

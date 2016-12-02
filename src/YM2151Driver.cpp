@@ -29,7 +29,7 @@
 
 
 #include "YM2151Driver.h"
-
+#include "EPROMManager.h"
 
 
 
@@ -40,6 +40,8 @@ void YM2151DriverClass::init()
 		YM2151Driver.setPan(i, 0x40);
 	}
 	YM2151.initLFO();
+
+	setMasterTune(*EPROMManager.load(0x00, 1));
 }
 
 void YM2151DriverClass::setOpVolume(uint8_t channel, uint8_t op, uint8_t value){
@@ -211,7 +213,16 @@ void YM2151DriverClass::noteOff(uint8_t channel){
 
 void YM2151DriverClass::setTone(uint8_t ch, uint8_t keycode, int16_t kf)
 {
-	YM2151.setTone(ch, keycode, kf);
+	YM2151.setTone(ch, keycode, kf + (MasterTune - 63));
+}
+
+void YM2151DriverClass::setMasterTune(uint8_t value)
+{
+	if (value != *EPROMManager.load(0x00, 1)) {
+		EPROMManager.save(0x00, &value, 1);
+	}
+
+	this->MasterTune = value;
 }
 
 extern  PROGMEM const unsigned char initPatch[];

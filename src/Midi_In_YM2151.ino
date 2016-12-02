@@ -34,7 +34,7 @@
 #include "SysExHandler.h"
 #include "PCHandler.h"
 #include "CCHandler.h"
-
+#include "EPROMManager.h"
 
 	MIDI_CREATE_INSTANCE(HardwareSerial, Serial,     MIDI); //Set Midi In to RX1 on Arduino
 //MIDI_CREATE_DEFAULT_INSTANCE();
@@ -47,7 +47,9 @@
 		YM2151.initLFO();
 		MIDI.begin(MIDI_CHANNEL_OMNI); 
 		
+
 		//init
+		EPROMManager.init();
 		YM2151Driver.init();
 		NotePool.init();
 		CCHandler.init();
@@ -68,6 +70,8 @@
 
 	//SysEx:
 	void handle_sysex(uint8_t* a, unsigned sizeofsysex){
+		SysExHandler.handleSysEx(a, sizeofsysex);
+		delete a; // we don't need the sysex Array anymore
 	}
 
 	void handle_CC(uint8_t channel, uint8_t number, uint8_t value){

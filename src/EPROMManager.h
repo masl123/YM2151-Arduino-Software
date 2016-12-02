@@ -31,11 +31,10 @@ class EPROMManagerClass
 {
  protected:
 
-
  public:
 	void init();
-	void load();
-	void save();
+	uint8_t* load(uint16_t address, uint8_t length);
+	void save(uint16_t address , uint8_t values[], uint8_t length);
 };
 
 extern EPROMManagerClass EPROMManager;
