@@ -21,18 +21,18 @@ YM2151_Class::YM2151_Class()
 }
 void	YM2151_Class::begin()
 {
-	digitalWrite(PIN_IC, HIGH);
-	digitalWrite(PIN_A0, HIGH);
-	digitalWrite(PIN_WR, HIGH);
-	digitalWrite(PIN_RD, HIGH);
+	digitalWrite(P_IC, HIGH);
+	digitalWrite(P_A0, HIGH);
+	digitalWrite(P_WR, HIGH);
+	digitalWrite(P_RD, HIGH);
 
-	pinMode(PIN_A0, OUTPUT); 
-	pinMode(PIN_WR, OUTPUT); 
-	pinMode(PIN_RD, OUTPUT); 
-	pinMode(PIN_IC, OUTPUT); 
-	digitalWrite(PIN_IC, LOW);
+	pinMode(P_A0, OUTPUT); 
+	pinMode(P_WR, OUTPUT); 
+	pinMode(P_RD, OUTPUT); 
+	pinMode(P_IC, OUTPUT); 
+	digitalWrite(P_IC, LOW);
 	delay(100);
-	digitalWrite(PIN_IC, HIGH);
+	digitalWrite(P_IC, HIGH);
 	delay(100);
 	return;
 }

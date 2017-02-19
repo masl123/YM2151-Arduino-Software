@@ -1,7 +1,7 @@
 
 /**
 *	YM2151 - Chip Controller Software for ARDUINO
-*	(C) 2016  Marcel Weiﬂ
+*	(C) 2016  Marcel Wei√ü
 *
 *	This program is free software : you can redistribute it and / or modify
 *	it under the terms of the GNU General Public License as published by
