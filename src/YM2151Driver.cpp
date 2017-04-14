@@ -1,6 +1,7 @@
 /**
 *	YM2151 - Chip Controller Software for ARDUINO
 *	(C) 2016  Marcel Weiß
+*	(C) 2016  Charles Hobbs
 *
 *	This program is free software : you can redistribute it and / or modify
 *	it under the terms of the GNU General Public License as published by
@@ -30,25 +31,53 @@
 
 #include "YM2151Driver.h"
 #include "EPROMManager.h"
-
-
+#include <Arduino.h>
 
 void YM2151DriverClass::init()
 {
+	for (byte i = 0; i < 8; i++) {
+		YM2151Driver.MasterVolume[i] = 63;
+	}
+
 	YM2151Driver.loadInitPatch();
+
+
 	for (byte i = 0; i < 8; i++) {
 		YM2151Driver.setPan(i, 0x40);
 	}
-	YM2151.initLFO();
 
+	YM2151.initLFO();
 	setMasterTune(*EPROMManager.load(0x00, 1));
 }
 
 void YM2151DriverClass::setOpVolume(uint8_t channel, uint8_t op, uint8_t value){
 	uint8_t adr = getAdr(channel, op);
 	TotalLevel[adr] = (TotalLevel[adr] & 0x80) | (value & 0x7F);
-	YM2151.write(0x60 + adr, TotalLevel[adr]);
+
+	int16_t att, tl;
+	tl = map(MasterVolume[channel], 0, 127, 127, -127);
+
+
+	//see setOpActive
+	if (op == 1) {
+		op = 2;
+	}
+	else if (op == 2) {
+		op = 1;
+	}
+
+	if (OpOn[channel] & (1 << op)) {
+		att = TotalLevel[adr] + tl;
+	}
+	else {
+		att = TotalLevel[adr];
+	}
+
+	att = constrain(att, 0, 0x7f);
+
+	YM2151.write(0x60 + adr, att);
 }
+
 void YM2151DriverClass::setMul(uint8_t channel, uint8_t op, uint8_t value){
 	uint8_t adr = getAdr(channel, op);
 	DetPhase_Mul[adr] = (DetPhase_Mul[adr] & 0xf0) | ((value & 0x78) >> 3);
@@ -223,6 +252,15 @@ void YM2151DriverClass::setMasterTune(uint8_t value)
 	}
 
 	this->MasterTune = value;
+}
+
+void YM2151DriverClass::setMasterVolume(uint8_t channel, uint8_t value) {
+	YM2151DriverClass::MasterVolume[channel] = value;
+	for (uint8_t i = 0; i < 4; i++) {
+		uint8_t adr = getAdr(channel, i);
+		setOpVolume(channel, i, YM2151DriverClass::TotalLevel[adr]);
+	}
+	
 }
 
 extern  PROGMEM const unsigned char initPatch[];

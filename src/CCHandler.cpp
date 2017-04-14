@@ -26,6 +26,12 @@
 * --------------------
 * MIDI CC:			  |
 * --------------------
+* 
+*
+*
+* 07	Master Volume
+*
+*
 *
 * OPERATOR 1: 16 - 25
 * 16	Level
@@ -110,6 +116,7 @@
 #include "YM2151Driver.h"
 #include "NotePool.h"
 
+
 void CCHandlerClass::init()
 {
 
@@ -149,6 +156,16 @@ void CCHandlerClass::handleCC(uint8_t channel, uint8_t number, uint8_t value){
 		}
 		else if (number <= 73 && number >= 72) {
 			handleNoise(number, value);
+		}
+		else if (number == 7) {
+			if (NotePool.getMode()) {
+				YM2151Driver.setMasterVolume(channel, value);
+			}
+			else {
+				for (byte i = 0; i < 8; i++) {
+					YM2151Driver.setMasterVolume(i, value);
+				}
+			}
 		}
 }
 
@@ -276,16 +293,8 @@ void CCHandlerClass::handleOp(uint8_t channel, uint8_t op, uint8_t number, uint8
 			break;
 		default: break;
 	}
-
-
-
-
-
-
-
-
-
 }
+
 
 CCHandlerClass CCHandler;
 

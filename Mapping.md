@@ -2,6 +2,7 @@
 
 # MIDI CC:
 
+<br> 7 Volume
 
 ### <br> OPERATOR 1: 16 - 25
 <br> 16	Level
@@ -14,7 +15,7 @@
 <br> 23   Dec1 (Level)
 <br> 24   Dec2 (Rate)
 <br> 25   Rel (Rate)
-<br>
+
 ###<br> OPERATOR 2: 26 - 35
 <br> 26	Level
 <br> 27	Mul
@@ -50,7 +51,7 @@
 <br> 53   Dec1 (L)
 <br> 54   Dec2 (R)
 <br> 55   Rel (R)
-<br>
+
 ###<br> COMMON: 56 - 67
 <br> 56	Op #1 - ON/OFF		
 <br> 57	Op #2 - ON/OFF
@@ -64,13 +65,15 @@
 <br> 65	AMS
 <br> 66	PMS
 <br> 67	Algorithm
-<br>
+
+
 ###<br>LFO 68 - 71
 <br> 68	Freq
 <br> 69	LFO Wave
 <br> 70	AMP Mod Depth
 <br> 71	PHASE Mod Depth
-<br>
+
+
 ###<br> Noise 72-74
 <br> 72	Noise Freq
 <br> 73	Noise Enable
@@ -78,3 +81,9 @@
 ###<br> OTHER:
 <br> 74	POLY/CHANNEL Mode (0 = CHANNEL; 127 = POLY)
 
+# MIDI SYSEX: 
+
+
+| Name            | Code (in Hex)       | Value Description                                       |
+|-----------------|---------------------|---------------------------------------------------------|
+| Master Tune     | f0 4d 54 [Value] f7 | [Value] has length of 8-Bit (Max Value is 127)<br> Master Tune = [Value] - 63  |
