@@ -1,8 +1,8 @@
-************************************************************************
-	
-	
-	YM2151 - Chip Controller Software for ARDUINO
-	(C) 2016  Marcel Weiﬂ
+
+YM2151 - Chip Controller Software for ARDUINO
+---------------------------------------------
+
+	(C) 2016  Marcel Wei√ü
 	(C) 2016  Charles Hobbs
 
 	This program is free software : you can redistribute it and / or modify
@@ -19,9 +19,9 @@
 	along with this program.If not, see <http://www.gnu.org/licenses/>.
 	
 	
-************************************************************************
+
 	
-Some portions of the software (YM2151.h, YM2151.cpp) are licensed under:
+#### Some portions of the software (YM2151.h, YM2151.cpp) are licensed under:
 
 
 	The MIT License
@@ -45,5 +45,3 @@ Some portions of the software (YM2151.h, YM2151.cpp) are licensed under:
 	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
-	
-************************************************************************
