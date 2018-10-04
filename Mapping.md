@@ -4,7 +4,7 @@
 
 <br> 7 Volume
 
-### <br> OPERATOR 1: 16 - 25
+### OPERATOR 1: 16 - 25
 <br> 16	Level
 <br> 17	Mul
 <br> 18   Det1
@@ -16,7 +16,7 @@
 <br> 24   Dec2 (Rate)
 <br> 25   Rel (Rate)
 
-###<br> OPERATOR 2: 26 - 35
+### OPERATOR 2: 26 - 35
 <br> 26	Level
 <br> 27	Mul
 <br>28   Det1
@@ -28,7 +28,7 @@
 <br> 34   Dec2 (R)
 <br> 35   Rel (R)
 
-###<br> OPERATOR 3: 36 - 45
+### OPERATOR 3: 36 - 45
 <br> 36	Level
 <br> 37	Mul
 <br> 38   Det1
@@ -40,7 +40,7 @@
 <br> 44   Dec2 (R)
 <br> 45   Rel (R)
 
-###<br> OPERATOR 4: 46 - 55
+### OPERATOR 4: 46 - 55
 <br> 46	Level
 <br> 47	Mul
 <br> 48   Det1
@@ -52,7 +52,7 @@
 <br> 54   Dec2 (R)
 <br> 55   Rel (R)
 
-###<br> COMMON: 56 - 67
+### COMMON: 56 - 67
 <br> 56	Op #1 - ON/OFF		
 <br> 57	Op #2 - ON/OFF
 <br> 58	Op #3 - ON/OFF
@@ -67,14 +67,14 @@
 <br> 67	Algorithm
 
 
-###<br>LFO 68 - 71
+###LFO 68 - 71
 <br> 68	Freq
 <br> 69	LFO Wave
 <br> 70	AMP Mod Depth
 <br> 71	PHASE Mod Depth
 
 
-###<br> Noise 72-74
+### Noise 72-74
 <br> 72	Noise Freq
 <br> 73	Noise Enable
 <br>
