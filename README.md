@@ -10,15 +10,15 @@ This Firmware allows you to control the YM2151-Synthesizer Chip over Midi. This 
 
 #### Polyphonic-mode:
 The notes which are sent over midi are assigned automatically to one of the free voices of the chip. All voices have the same timbre. There can be a maximum of eight notes playing at the same time. 
-Midi notes and control change messages have to be sent over midi channel 1. The control messages which can be sent in polyphonic-mode over midi channel one, are described in Mapping.md. 
+Midi notes and control change messages have to be sent over midi channel 1. The control messages which can be sent in polyphonic-mode over midi channel one, are described in [Mapping.md](Mapping.md). 
 
 
 #### Monophonic-mode:
 This mode allows you to control up to eight different monophonic voices with different timbres.
-The notes and control change messages which are sent over midi are assigned to the same Voice as the Midi Channel number. So sending a message over midi channel 5, only affects voice no. 5 of the YM2151 Chip. As the YM2151-Chip has eight voices, only midi channels one through eight are used. The control messages which can be sent in monophonic-mode over midi channels one through eight, are described in Mapping.md.
+The notes and control change messages which are sent over midi are assigned to the same Voice as the Midi Channel number. So sending a message over midi channel 5, only affects voice no. 5 of the YM2151 Chip. As the YM2151-Chip has eight voices, only midi channels one through eight are used. The control messages which can be sent in monophonic-mode over midi channels one through eight, are described in [Mapping.md](Mapping.md).
 
-<br>- See Mapping.md for the control-messages you can send over midi to control the parameters of the chip.
-<br>- See LICENSE for the Licensing terms.
+<br>- See [Mapping.md](Mapping.md) for the control-messages you can send over midi to control the parameters of the chip.
+<br>- See [LICENSE.md](LICENSE.md) for the Licensing terms.
 
 <br>
 
