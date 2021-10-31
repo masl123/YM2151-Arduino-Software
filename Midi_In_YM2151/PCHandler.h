@@ -16,28 +16,25 @@
 *	along with this program.If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _EPROMMANAGER_h
-#define _EPROMMANAGER_h
+#ifndef _PCHANDLER_h
+#define _PCHANDLER_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
+	#include <Arduino.h>
 #else
 	#include "WProgram.h"
 #endif
 
-
-
-class EPROMManagerClass
+class PCHandlerClass
 {
  protected:
 
+
  public:
 	void init();
-	uint8_t* load(uint16_t address, uint8_t length);
-	void save(uint16_t address , uint8_t values[], uint8_t length);
 };
 
-extern EPROMManagerClass EPROMManager;
+extern PCHandlerClass PCHandler;
 
 #endif
 

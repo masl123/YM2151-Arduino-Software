@@ -27,7 +27,7 @@ THE SOFTWARE.
 
 #if !defined( YM2151_H_INCLUDED )
 #define YM2151_H_INCLUDED
-#include	"arduino.h"
+#include <Arduino.h>
 #include	<avr/pgmspace.h>
 
 class	YM2151_Class{

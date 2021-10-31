@@ -16,32 +16,27 @@
 *	along with this program.If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _CCHANDLER_h
-#define _CCHANDLER_h
+#ifndef _EPROMMANAGER_h
+#define _EPROMMANAGER_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
+	#include <Arduino.h>
 #else
 	#include "WProgram.h"
 #endif
 
-class CCHandlerClass
+
+
+class EPROMManagerClass
 {
-protected:
-	
-
-
+ protected:
 
  public:
 	void init();
-	void handleCC(uint8_t channel, uint8_t number, uint8_t value);
-	void handleLFO(uint8_t number, uint8_t value);
-	void handleNoise(uint8_t number, uint8_t value);
-	void handleCommon(uint8_t channel, uint8_t number, uint8_t value);
-	void handleOp(uint8_t channel, uint8_t op, uint8_t number, uint8_t value);
+	uint8_t* load(uint16_t address, uint8_t length);
+	void save(uint16_t address , uint8_t values[], uint8_t length);
 };
 
-extern CCHandlerClass CCHandler;
+extern EPROMManagerClass EPROMManager;
 
 #endif
-

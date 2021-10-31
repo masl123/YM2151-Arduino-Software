@@ -16,39 +16,26 @@
 *	along with this program.If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _NOTEPOOL_h
-#define _NOTEPOOL_h
+#ifndef _SYSEXHANDLER_h
+#define _SYSEXHANDLER_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
+	#include <Arduino.h>
 #else
 	#include "WProgram.h"
 #endif
 
-#include "YM2151.h"
-
-
-
-
-
-class NotePoolClass
+class SysExHandlerClass
 {
- private:
-		uint8_t* notes;
-		bool mode;
+ protected:
 
 
-		void resetNotes();
-		uint8_t findNote(uint8_t note);
-		uint8_t getFreeChannel();
-
- public: void init();
-		 void handleNote(bool on, uint8_t channel, uint8_t pitch, uint8_t velocity);
-		 void setMode(bool channel);
-		 bool getMode();
+ public:
+	void init();
+	void handleSysEx(uint8_t values[], uint8_t length);
 };
 
-extern NotePoolClass NotePool;
+extern SysExHandlerClass SysExHandler;
 
 #endif
 
