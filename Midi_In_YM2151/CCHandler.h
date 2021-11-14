@@ -16,25 +16,32 @@
 *	along with this program.If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _PCHANDLER_h
-#define _PCHANDLER_h
+#ifndef _CCHANDLER_h
+#define _CCHANDLER_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
+	#include <Arduino.h>
 #else
 	#include "WProgram.h"
 #endif
 
-class PCHandlerClass
+class CCHandlerClass
 {
- protected:
+protected:
+	
+
 
 
  public:
 	void init();
+	void handleCC(uint8_t channel, uint8_t number, uint8_t value);
+	void handleLFO(uint8_t number, uint8_t value);
+	void handleNoise(uint8_t number, uint8_t value);
+	void handleCommon(uint8_t channel, uint8_t number, uint8_t value);
+	void handleOp(uint8_t channel, uint8_t op, uint8_t number, uint8_t value);
 };
 
-extern PCHandlerClass PCHandler;
+extern CCHandlerClass CCHandler;
 
 #endif
 
